@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
       // SECURITY: Only allow images from Supabase storage
       {
         protocol: 'https',
-        hostname: '*.supabase.co',
+        hostname: '*uitnikhlfxfvtvpqdmjf.supabase.co',
       },
       // Allow images from Unsplash for hero carousel
       {
