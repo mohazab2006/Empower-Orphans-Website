@@ -7,6 +7,7 @@
     # ---- build ----
     FROM node:20-alpine AS builder
     WORKDIR /app
+    ENV NEXT_TELEMETRY_DISABLED=1
     COPY --from=deps /app/node_modules ./node_modules
     COPY . .
     RUN npm run build
@@ -15,15 +16,14 @@
     FROM node:20-alpine AS runner
     WORKDIR /app
     ENV NODE_ENV=production
+    ENV NEXT_TELEMETRY_DISABLED=1
     
-    # If you use Next "standalone" output, enable it in next.config first.
-    # Otherwise this still works fine by copying .next + node_modules.
-    
-    COPY --from=builder /app/package*.json ./
-    COPY --from=builder /app/node_modules ./node_modules
-    COPY --from=builder /app/.next ./.next
+    # Standalone server + minimal files
+    COPY --from=builder /app/.next/standalone ./
+    COPY --from=builder /app/.next/static ./.next/static
     COPY --from=builder /app/public ./public
     
     EXPOSE 3000
-    CMD ["npm", "run", "start"]
+    # Standalone output creates server.js at root
+    CMD ["node", "server.js"]
     
