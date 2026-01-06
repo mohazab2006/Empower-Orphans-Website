@@ -16,6 +16,13 @@ export default function Footer() {
     { label: "Contact", href: "/#contact" },
   ];
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <footer className="bg-gradient-to-br from-eo-dark to-eo-teal text-white py-16">
       <div className="mx-auto max-w-7xl px-6">
@@ -146,15 +153,15 @@ export default function Footer() {
           <p className="text-sm text-white/70">
             © {currentYear} Empower Orphans. All rights reserved.
           </p>
-          <Link
-            href="#top"
-            className="inline-flex items-center gap-2 mt-4 text-sm text-white/80 hover:text-white transition-colors"
+          <button
+            onClick={scrollToTop}
+            className="inline-flex items-center gap-2 mt-4 text-sm text-white/80 hover:text-white transition-colors cursor-pointer"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
             </svg>
             Back to top
-          </Link>
+          </button>
         </motion.div>
       </div>
     </footer>
